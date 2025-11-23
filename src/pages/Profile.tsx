@@ -1,17 +1,19 @@
-import { Settings, Shield, Bookmark, History, Bell, HelpCircle, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Settings, Shield, Bookmark, History, Bell, HelpCircle, LogOut, Heart } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 
 const menuItems = [
-  { icon: Shield, label: "Safety & Visibility", color: "success" },
-  { icon: Bookmark, label: "Saved Items", color: "primary" },
-  { icon: History, label: "My Activity", color: "primary" },
-  { icon: Bell, label: "Notifications", color: "primary" },
-  { icon: Settings, label: "Settings", color: "primary" },
-  { icon: HelpCircle, label: "Help & Support", color: "primary" },
+  { icon: Shield, label: "Safety & Visibility", color: "success", path: "/safety-settings" },
+  { icon: Bookmark, label: "Saved Items", color: "primary", path: "/saved-items" },
+  { icon: History, label: "My Activity", color: "primary", path: "/my-activity" },
+  { icon: Bell, label: "Notifications", color: "primary", path: "/notification-settings" },
+  { icon: Settings, label: "Settings", color: "primary", path: "/settings" },
+  { icon: HelpCircle, label: "Help & Support", color: "primary", path: "/help-support" },
 ];
 
 const Profile = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <div className="flex-1 overflow-y-auto pb-24">
@@ -34,6 +36,20 @@ const Profile = () => {
             </Button>
           </div>
 
+          {/* Special Feature */}
+          <button 
+            onClick={() => navigate("/lonely-mode")}
+            className="w-full bg-gradient-to-br from-primary-soft to-success-soft border border-primary/20 rounded-xl p-4 flex items-center gap-4 hover:border-primary/50 transition-all duration-200"
+          >
+            <div className="p-2 rounded-lg bg-card">
+              <Heart className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1 text-left">
+              <span className="font-medium">Feeling Lonely?</span>
+              <p className="text-xs text-muted-foreground mt-0.5">Find support & connection</p>
+            </div>
+          </button>
+
           {/* Menu Items */}
           <div className="space-y-2">
             {menuItems.map((item) => {
@@ -41,6 +57,7 @@ const Profile = () => {
               return (
                 <button
                   key={item.label}
+                  onClick={() => navigate(item.path)}
                   className="w-full bg-card border border-border rounded-xl p-4 flex items-center gap-4 hover:border-primary/30 transition-all duration-200"
                 >
                   <div

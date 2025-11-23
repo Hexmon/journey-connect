@@ -15,6 +15,17 @@ import ChatRoom from "./pages/ChatRoom";
 import Forum from "./pages/Forum";
 import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
+import CreateRide from "./pages/CreateRide";
+import CreateHelp from "./pages/CreateHelp";
+import CreateMeetPeople from "./pages/CreateMeetPeople";
+import CreateNews from "./pages/CreateNews";
+import LonelyMode from "./pages/LonelyMode";
+import SafetySettings from "./pages/SafetySettings";
+import SavedItems from "./pages/SavedItems";
+import MyActivity from "./pages/MyActivity";
+import NotificationSettings from "./pages/NotificationSettings";
+import Settings from "./pages/Settings";
+import HelpSupport from "./pages/HelpSupport";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +50,17 @@ const App = () => (
           <Route path="/forum" element={<Forum />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-event" element={<CreateEvent />} />
+          <Route path="/create-ride" element={<CreateRide />} />
+          <Route path="/create-help" element={<CreateHelp />} />
+          <Route path="/create-meet-people" element={<CreateMeetPeople />} />
+          <Route path="/create-news" element={<CreateNews />} />
+          <Route path="/lonely-mode" element={<LonelyMode />} />
+          <Route path="/safety-settings" element={<SafetySettings />} />
+          <Route path="/saved-items" element={<SavedItems />} />
+          <Route path="/my-activity" element={<MyActivity />} />
+          <Route path="/notification-settings" element={<NotificationSettings />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/help-support" element={<HelpSupport />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

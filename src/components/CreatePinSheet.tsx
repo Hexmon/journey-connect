@@ -17,11 +17,11 @@ interface CreatePinSheetProps {
 
 const pinTypes = [
   { id: "event" as PinType, label: "Event / Hangout", icon: Calendar, color: "secondary", description: "Organize a social gathering", path: "/create-event" },
-  { id: "meet" as PinType, label: "Meet People", icon: Users, color: "primary", description: "Be open to connect nearby", path: "/map" },
-  { id: "ride" as PinType, label: "Ride Share", icon: Car, color: "info", description: "Offer or find a ride", path: "/map" },
-  { id: "help" as PinType, label: "Community Help", icon: HandHeart, color: "success", description: "Ask for or offer help", path: "/map" },
-  { id: "news" as PinType, label: "Local Opportunity", icon: Briefcase, color: "news", description: "Share job or opportunity", path: "/map" },
-  { id: "news" as PinType, label: "News / Update", icon: Megaphone, color: "news", description: "Share local news", path: "/map" },
+  { id: "meet" as PinType, label: "Meet People", icon: Users, color: "primary", description: "Be open to connect nearby", path: "/create-meet-people" },
+  { id: "ride" as PinType, label: "Ride Share", icon: Car, color: "info", description: "Offer or find a ride", path: "/create-ride" },
+  { id: "help" as PinType, label: "Community Help", icon: HandHeart, color: "success", description: "Ask for or offer help", path: "/create-help" },
+  { id: "news" as PinType, label: "Local Opportunity", icon: Briefcase, color: "news", description: "Share job or opportunity", path: "/create-news" },
+  { id: "news" as PinType, label: "News / Update", icon: Megaphone, color: "news", description: "Share local news", path: "/create-news" },
 ];
 
 const CreatePinSheet = ({ open, onClose }: CreatePinSheetProps) => {
