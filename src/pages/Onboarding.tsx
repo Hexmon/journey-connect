@@ -1,96 +1,93 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Phone, Mail, ArrowRight } from "lucide-react";
+import { FaGoogle, FaApple } from "react-icons/fa";
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
 
-  const handleContinue = () => {
-    if (name && email) {
-      navigate("/onboarding/intent");
-    }
+  const handleGoogleSignIn = () => {
+    // Will be connected to Google auth
+    navigate("/onboarding/intent");
+  };
+
+  const handleAppleSignIn = () => {
+    // Will be connected to Apple auth
+    navigate("/onboarding/intent");
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col p-6">
-      <div className="flex-1 flex flex-col max-w-md mx-auto w-full justify-center">
-        <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Welcome to Journey
-          </h1>
-          <p className="text-text-secondary">
-            Let's get you started with a few quick details
-          </p>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Map-style background */}
+      <div className="absolute inset-0 bg-background">
+        {/* Street patterns */}
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={`h-${i}`}
+              className="absolute w-full h-px bg-foreground"
+              style={{ top: `${i * 5}%` }}
+            />
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={`v-${i}`}
+              className="absolute h-full w-px bg-foreground"
+              style={{ left: `${i * 5}%` }}
+            />
+          ))}
         </div>
 
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
-          <div className="space-y-2">
-            <Label htmlFor="name">Your Name</Label>
-            <Input
-              id="name"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="h-12"
-            />
-          </div>
+        {/* Park areas */}
+        <div className="absolute top-[20%] left-[10%] w-32 h-32 rounded-full bg-primary/5 blur-2xl" />
+        <div className="absolute bottom-[30%] right-[15%] w-40 h-40 rounded-full bg-primary/5 blur-2xl" />
+        <div className="absolute top-[60%] left-[70%] w-24 h-24 rounded-full bg-primary/5 blur-2xl" />
+        
+        {/* Water body effect */}
+        <div className="absolute bottom-[10%] left-[20%] w-48 h-32 rounded-3xl bg-primary/3 blur-xl" />
+      </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="h-12"
-            />
-          </div>
-
-          <div className="pt-4">
-            <Button
-              onClick={handleContinue}
-              disabled={!name || !email}
-              className="w-full h-12 text-base rounded-full"
-              size="lg"
-            >
-              Continue
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-
-          <div className="relative py-4">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-border" />
+      {/* Auth Card */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          <div className="bg-card/95 backdrop-blur-lg border border-border rounded-3xl p-8 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="mb-8 text-center">
+              <h1 className="text-4xl font-bold text-foreground mb-3">
+                Welcome to Journey
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                Connect with your community
+              </p>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="bg-background px-4 text-muted-foreground">
-                or continue with
-              </span>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="h-12 rounded-full">
-              <Phone className="mr-2 h-4 w-4" />
-              Phone
-            </Button>
-            <Button variant="outline" className="h-12 rounded-full">
-              <Mail className="mr-2 h-4 w-4" />
-              Google
-            </Button>
+            <div className="space-y-4">
+              <Button
+                onClick={handleGoogleSignIn}
+                variant="outline"
+                className="w-full h-14 text-base rounded-2xl border-2 hover:bg-accent/50 hover:border-primary/50 transition-all duration-300"
+                size="lg"
+              >
+                <FaGoogle className="mr-3 h-5 w-5 text-red-500" />
+                Continue with Google
+              </Button>
+
+              <Button
+                onClick={handleAppleSignIn}
+                variant="outline"
+                className="w-full h-14 text-base rounded-2xl border-2 hover:bg-accent/50 hover:border-primary/50 transition-all duration-300"
+                size="lg"
+              >
+                <FaApple className="mr-3 h-5 w-5" />
+                Continue with Apple
+              </Button>
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground mt-8 leading-relaxed">
+              By continuing, you agree to Journey's<br />
+              <span className="text-primary">Terms of Service</span> and <span className="text-primary">Privacy Policy</span>
+            </p>
           </div>
         </div>
       </div>
-
-      <p className="text-xs text-center text-muted-foreground mt-8">
-        By continuing, you agree to Journey's Terms of Service and Privacy Policy
-      </p>
     </div>
   );
 };
