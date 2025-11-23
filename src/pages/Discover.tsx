@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Calendar, MapPin, Users, Heart, MessageCircle, Share2, MoreHorizontal, Bookmark } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, MessageCircle, Share2, MoreHorizontal, Bookmark, AlertCircle, Clock, Car, HandHeart, Megaphone } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import PostShareSheet from "@/components/PostShareSheet";
 import PostDetailSheet from "@/components/PostDetailSheet";
 import { mockPins } from "@/data/mockData";
@@ -52,113 +53,199 @@ const Discover = () => {
     setDetailOpen(true);
   };
 
+  const getCardStyle = (type: string) => {
+    switch (type) {
+      case "event":
+        return {
+          gradient: "from-secondary/20 via-secondary/10 to-background",
+          icon: Calendar,
+          iconColor: "text-secondary",
+          badge: "Event",
+          badgeColor: "bg-secondary text-secondary-foreground",
+        };
+      case "meet":
+        return {
+          gradient: "from-primary/20 via-primary/10 to-background",
+          icon: Users,
+          iconColor: "text-primary",
+          badge: "Meet People",
+          badgeColor: "bg-primary text-primary-foreground",
+        };
+      case "ride":
+        return {
+          gradient: "from-info/20 via-info/10 to-background",
+          icon: Car,
+          iconColor: "text-info",
+          badge: "Ride Share",
+          badgeColor: "bg-info text-white",
+        };
+      case "help":
+        return {
+          gradient: "from-success/20 via-success/10 to-background",
+          icon: HandHeart,
+          iconColor: "text-success",
+          badge: "Help Needed",
+          badgeColor: "bg-success text-white",
+        };
+      case "sos":
+        return {
+          gradient: "from-danger/20 via-danger/10 to-background",
+          icon: AlertCircle,
+          iconColor: "text-danger",
+          badge: "SOS - Urgent",
+          badgeColor: "bg-danger text-white animate-pulse",
+        };
+      case "news":
+        return {
+          gradient: "from-news/20 via-news/10 to-background",
+          icon: Megaphone,
+          iconColor: "text-news",
+          badge: "Community News",
+          badgeColor: "bg-news text-white",
+        };
+      default:
+        return {
+          gradient: "from-primary/20 via-primary/10 to-background",
+          icon: Users,
+          iconColor: "text-primary",
+          badge: "Update",
+          badgeColor: "bg-primary text-primary-foreground",
+        };
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-lg border-b border-border">
         <div className="px-6 py-4">
           <h1 className="text-2xl font-bold">Discover</h1>
+          <p className="text-sm text-muted-foreground">What's happening around you</p>
         </div>
       </div>
 
       {/* Feed */}
       <div className="flex-1 overflow-y-auto pb-24">
-        <div className="space-y-1">
+        <div className="p-4 space-y-4">
           {mockPins.map((post) => {
             const isLiked = likedPosts.has(post.id);
             const isSaved = savedPosts.has(post.id);
-            const likesCount = post.attendees + (isLiked ? 1 : 0);
+            const style = getCardStyle(post.type);
+            const Icon = style.icon;
+            const isUrgent = post.type === "sos" || post.type === "help";
 
             return (
-              <div key={post.id} className="bg-card border-b border-border">
+              <div 
+                key={post.id} 
+                className={`bg-card rounded-3xl overflow-hidden border-2 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
+                  isUrgent ? 'border-danger/50 shadow-lg shadow-danger/10' : 'border-border'
+                }`}
+              >
                 {/* Post Header */}
-                <div className="flex items-center justify-between px-4 py-3">
+                <div className="p-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10 ring-2 ring-primary/10">
-                      <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                    <Avatar className={`h-12 w-12 ring-2 ${isUrgent ? 'ring-danger/30' : 'ring-primary/10'}`}>
+                      <AvatarFallback className={`${style.iconColor} bg-muted text-base font-bold`}>
                         {post.host[0]}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold text-sm">{post.host}</p>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <p className="font-bold text-sm">{post.host}</p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
                         <MapPin className="h-3 w-3" />
                         <span>{post.distance}</span>
+                        {isUrgent && (
+                          <>
+                            <span>•</span>
+                            <div className="flex items-center gap-1 text-danger font-medium">
+                              <Clock className="h-3 w-3" />
+                              <span>{post.time}</span>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </Button>
+                  <Badge className={`${style.badgeColor} text-xs`}>
+                    {style.badge}
+                  </Badge>
                 </div>
 
-                {/* Post Image/Content */}
+                {/* Post Content Card */}
                 <div 
-                  className="relative aspect-square bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 cursor-pointer"
                   onClick={() => handleViewDetails(post)}
+                  className={`mx-4 mb-4 rounded-2xl bg-gradient-to-br ${style.gradient} p-6 cursor-pointer relative overflow-hidden`}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="mb-4">
-                        <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-4 py-2 rounded-full">
-                          {post.type === "event" ? "📅 Event" : post.type === "meet" ? "👥 Meet People" : "🚗 Ride Share"}
-                        </span>
+                  {/* Decorative background icon */}
+                  <div className={`absolute top-4 right-4 ${style.iconColor} opacity-10`}>
+                    <Icon className="h-24 w-24" strokeWidth={1.5} />
+                  </div>
+
+                  <div className="relative z-10">
+                    <h2 className="text-xl font-bold mb-2 line-clamp-2">{post.title}</h2>
+                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+                      {post.description}
+                    </p>
+
+                    {/* Info Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {!isUrgent && (
+                        <div className="flex items-center gap-1.5 bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs">
+                          <Calendar className="h-3.5 w-3.5" />
+                          <span>{post.time}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1.5 bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs">
+                        <Users className="h-3.5 w-3.5" />
+                        <span>{post.attendees} {post.type === "help" || post.type === "sos" ? "responses" : "going"}</span>
                       </div>
-                      <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
-                      <p className="text-sm text-muted-foreground line-clamp-2 max-w-md mx-auto">
-                        {post.description}
-                      </p>
+                      {isUrgent && (
+                        <div className="flex items-center gap-1.5 bg-danger/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs text-danger font-semibold animate-pulse">
+                          <AlertCircle className="h-3.5 w-3.5" />
+                          <span>URGENT</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 {/* Post Actions */}
-                <div className="px-4 py-3">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-4">
+                <div className="px-4 pb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-6">
                       <button 
                         onClick={() => handleLike(post.id)}
-                        className="transition-transform active:scale-125"
+                        className="flex items-center gap-2 transition-all active:scale-110 group"
                       >
                         <Heart 
-                          className={`h-6 w-6 ${isLiked ? 'fill-red-500 text-red-500' : ''}`}
+                          className={`h-5 w-5 ${isLiked ? 'fill-red-500 text-red-500' : 'group-hover:text-red-500'} transition-colors`}
                         />
+                        <span className="text-sm font-medium">{post.attendees + (isLiked ? 1 : 0)}</span>
                       </button>
-                      <button onClick={() => handleViewDetails(post)}>
-                        <MessageCircle className="h-6 w-6" />
+                      
+                      <button 
+                        onClick={() => handleViewDetails(post)}
+                        className="flex items-center gap-2 transition-all hover:text-primary group"
+                      >
+                        <MessageCircle className="h-5 w-5" />
+                        <span className="text-sm font-medium">Comment</span>
                       </button>
-                      <button onClick={() => handleShare(post)}>
-                        <Share2 className="h-6 w-6" />
+                      
+                      <button 
+                        onClick={() => handleShare(post)}
+                        className="flex items-center gap-2 transition-all hover:text-primary group"
+                      >
+                        <Share2 className="h-5 w-5" />
+                        <span className="text-sm font-medium">Share</span>
                       </button>
                     </div>
-                    <button onClick={() => handleSave(post.id)}>
-                      <Bookmark className={`h-6 w-6 ${isSaved ? 'fill-current' : ''}`} />
-                    </button>
-                  </div>
-
-                  {/* Post Stats */}
-                  <div className="space-y-1">
-                    <p className="font-semibold text-sm">{likesCount} likes</p>
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="font-semibold">{post.host}</span>
-                      <span className="text-muted-foreground line-clamp-1">{post.description}</span>
-                    </div>
+                    
                     <button 
-                      onClick={() => handleViewDetails(post)}
-                      className="text-sm text-muted-foreground"
+                      onClick={() => handleSave(post.id)}
+                      className="transition-all active:scale-110"
                     >
-                      View all comments
+                      <Bookmark className={`h-5 w-5 ${isSaved ? 'fill-current text-primary' : ''}`} />
                     </button>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-3.5 w-3.5" />
-                        <span>{post.time}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="h-3.5 w-3.5" />
-                        <span>{post.attendees} attending</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
