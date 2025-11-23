@@ -8,7 +8,7 @@ import PinDetail from "@/components/PinDetail";
 import CreatePinSheet from "@/components/CreatePinSheet";
 import SOSButton from "@/components/SOSButton";
 
-export type PinType = "meet" | "event" | "ride" | "help" | "sos" | "news";
+export type PinType = "meet" | "event" | "ride" | "help" | "sos" | "news" | "friend";
 
 export interface Pin {
   id: string;
@@ -25,7 +25,7 @@ export interface Pin {
 import { mockPins } from "@/data/mockData";
 
 const Map = () => {
-  const [selectedFilters, setSelectedFilters] = useState<PinType[]>(["meet", "event", "ride", "help", "news"]);
+  const [selectedFilters, setSelectedFilters] = useState<PinType[]>(["meet", "event", "ride", "help", "news", "friend"]);
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [createPinOpen, setCreatePinOpen] = useState(false);
   const [radius, setRadius] = useState(3);
