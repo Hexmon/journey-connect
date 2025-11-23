@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Hash, Lock, User, Users, Plus, Search, ChevronDown, Settings, Volume2, UserPlus, Bell, Pin } from "lucide-react";
+import { Hash, Lock, User, Users, Plus, Search, ChevronDown, Settings, Volume2, UserPlus, Bell, Pin, MapPin, Compass, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -76,6 +76,38 @@ const Chats = () => {
         <div className="h-12 px-4 flex items-center justify-between border-b border-border shadow-sm hover:bg-muted/50 cursor-pointer transition-colors">
           <h1 className="font-bold text-sm">Community Hub</h1>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
+        </div>
+
+        {/* Navigation Tabs - Desktop Only */}
+        <div className="hidden md:flex flex-col gap-1 p-2 border-b border-border">
+          <button
+            onClick={() => navigate("/map")}
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/80 transition-colors group"
+          >
+            <MapPin className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground">Map</span>
+          </button>
+          <button
+            onClick={() => navigate("/discover")}
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/80 transition-colors group"
+          >
+            <Compass className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground">Discover</span>
+          </button>
+          <button
+            onClick={() => navigate("/chats")}
+            className="flex items-center gap-3 px-3 py-2 rounded-md bg-primary/10 transition-colors group"
+          >
+            <MessageCircle className="h-4 w-4 text-primary transition-colors" />
+            <span className="text-sm font-medium text-primary">Chats</span>
+          </button>
+          <button
+            onClick={() => navigate("/forum")}
+            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/80 transition-colors group"
+          >
+            <Users className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground">Community</span>
+          </button>
         </div>
 
         {/* Search */}
@@ -251,9 +283,7 @@ const Chats = () => {
         </div>
 
         {/* Mobile Bottom Nav */}
-        <div className="md:hidden">
-          <BottomNav />
-        </div>
+        <BottomNav />
       </div>
 
       {/* Modals */}
