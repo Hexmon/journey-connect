@@ -8,12 +8,12 @@ const Onboarding = () => {
 
   const handleGoogleSignIn = () => {
     // Will be connected to Google auth
-    navigate("/onboarding/intent");
+    navigate("/onboarding/username");
   };
 
   const handleAppleSignIn = () => {
     // Will be connected to Apple auth
-    navigate("/onboarding/intent");
+    navigate("/onboarding/username");
   };
 
   return (
