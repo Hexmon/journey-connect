@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Pin } from "@/pages/Map";
 import { X, MapPin, Clock, Users, MessageCircle, Bookmark, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,6 +8,17 @@ import {
   SheetContent,
   SheetHeader,
 } from "@/components/ui/sheet";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { toast } from "@/hooks/use-toast";
 
 interface PinDetailProps {
   pin: Pin;
@@ -14,6 +27,9 @@ interface PinDetailProps {
 }
 
 const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
+  const navigate = useNavigate();
+  const [showJoinDialog, setShowJoinDialog] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const getTypeLabel = (type: Pin["type"]) => {
     switch (type) {
       case "meet":
@@ -52,7 +68,42 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
     }
   };
 
+  const handleJoin = () => {
+    setShowJoinDialog(true);
+  };
+
+  const confirmJoin = () => {
+    toast({
+      title: "You're going!",
+      description: "We'll remind you 30 minutes before.",
+    });
+    setShowJoinDialog(false);
+    onClose();
+    navigate("/chats");
+  };
+
+  const handleSave = () => {
+    setIsSaved(!isSaved);
+    toast({
+      title: isSaved ? "Removed from saved" : "Saved!",
+      description: isSaved ? "Item removed from your saved list" : "You can find this in Saved Items",
+    });
+  };
+
+  const handleShare = () => {
+    toast({
+      title: "Link copied!",
+      description: "Share this event with your friends",
+    });
+  };
+
+  const handleChat = () => {
+    onClose();
+    navigate("/chats");
+  };
+
   return (
+    <>
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[80vh] rounded-t-3xl p-0">
         <SheetHeader className="p-6 pb-4 border-b border-border">
@@ -120,13 +171,27 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
 
           {/* Action Buttons */}
           <div className="flex gap-2">
-            <Button variant="outline" size="icon" className="rounded-full flex-shrink-0">
-              <Bookmark className="h-4 w-4" />
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="rounded-full flex-shrink-0"
+              onClick={handleSave}
+            >
+              <Bookmark className={`h-4 w-4 ${isSaved ? "fill-primary text-primary" : ""}`} />
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full flex-shrink-0">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="rounded-full flex-shrink-0"
+              onClick={handleShare}
+            >
               <Share2 className="h-4 w-4" />
             </Button>
-            <Button variant="outline" className="rounded-full flex-1">
+            <Button 
+              variant="outline" 
+              className="rounded-full flex-1"
+              onClick={handleChat}
+            >
               <MessageCircle className="h-4 w-4 mr-2" />
               Chat
             </Button>
@@ -135,12 +200,35 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
 
         {/* Bottom Action */}
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-card border-t border-border">
-          <Button className="w-full h-12 text-base rounded-full" size="lg">
+          <Button 
+            className="w-full h-12 text-base rounded-full" 
+            size="lg"
+            onClick={handleJoin}
+          >
             Join Event
           </Button>
         </div>
       </SheetContent>
+
+      {/* Join Confirmation Dialog */}
+      <AlertDialog open={showJoinDialog} onOpenChange={setShowJoinDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Join this event?</AlertDialogTitle>
+            <AlertDialogDescription>
+              You'll be added to the event chat and receive a reminder 30 minutes before it starts.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmJoin}>
+              Yes, I'm going
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Sheet>
+    </>
   );
 };
 
