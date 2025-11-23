@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Users, Calendar, Car, HandHeart, Megaphone, SlidersHorizontal, X, UserCircle } from "lucide-react";
+import { Users, Calendar, Car, HandHeart, Megaphone, SlidersHorizontal, X } from "lucide-react";
 import { PinType } from "@/pages/Map";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,6 @@ interface FilterBarProps {
 }
 
 const filters = [
-  { id: "friend" as PinType, label: "Friends", icon: UserCircle, color: "friend" },
   { id: "meet" as PinType, label: "Meet People", icon: Users, color: "primary" },
   { id: "event" as PinType, label: "Events", icon: Calendar, color: "secondary" },
   { id: "ride" as PinType, label: "Rides", icon: Car, color: "info" },
@@ -101,9 +100,7 @@ const FilterBar = ({ selectedFilters, onFiltersChange, radius, onRadiusChange }:
                         onClick={() => toggleFilter(filter.id)}
                         className={`p-3 rounded-xl border-2 transition-all duration-200 flex items-center gap-2 ${
                           isSelected
-                            ? filter.color === "friend"
-                              ? "border-accent bg-accent/10"
-                              : filter.color === "primary"
+                            ? filter.color === "primary"
                               ? "border-primary bg-primary-soft"
                               : filter.color === "secondary"
                               ? "border-secondary bg-secondary-soft"
@@ -135,9 +132,7 @@ const FilterBar = ({ selectedFilters, onFiltersChange, radius, onRadiusChange }:
                 key={filter.id}
                 onClick={() => toggleFilter(filter.id)}
                 className={`flex-shrink-0 flex items-center gap-2 px-4 h-10 rounded-full text-sm font-medium transition-all duration-200 ${
-                  filter.color === "friend"
-                    ? "bg-accent text-accent-foreground"
-                    : filter.color === "primary"
+                  filter.color === "primary"
                     ? "bg-primary text-primary-foreground"
                     : filter.color === "secondary"
                     ? "bg-secondary text-secondary-foreground"
