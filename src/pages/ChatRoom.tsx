@@ -58,7 +58,7 @@ const ChatRoom = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-8 w-8"
+            className="h-8 w-8"
             onClick={() => navigate("/chats")}
           >
             <ArrowLeft className="h-5 w-5" />
