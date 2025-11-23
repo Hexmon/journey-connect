@@ -1,5 +1,6 @@
 import { Pin } from "@/pages/Map";
 import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, AlertCircle } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface MapViewProps {
   pins: Pin[];
@@ -28,6 +29,8 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
 
   const getPinColor = (type: Pin["type"]) => {
     switch (type) {
+      case "friends":
+        return "bg-accent";
       case "meet":
         return "bg-primary";
       case "event":
@@ -122,15 +125,29 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
                 {/* Pin shadow */}
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-1.5 bg-foreground/20 rounded-full blur-sm" />
                 
-                {/* Pin body */}
-                <div className={`${colorClass} text-white p-3 rounded-full shadow-lg group-hover:scale-110 transition-transform duration-200 relative`}>
-                  <Icon className="h-5 w-5" strokeWidth={2} />
-                  
-                  {/* Pulse effect for SOS */}
-                  {pin.type === "sos" && (
-                    <div className="absolute inset-0 rounded-full bg-danger animate-ping opacity-75" />
-                  )}
-                </div>
+                {/* Pin body - Show avatar for friends, icon for others */}
+                {pin.type === "friends" ? (
+                  <div className="relative">
+                    <Avatar className="h-12 w-12 border-4 border-accent shadow-lg group-hover:scale-110 transition-transform duration-200">
+                      <AvatarFallback className="bg-accent text-accent-foreground font-semibold">
+                        {pin.avatar}
+                      </AvatarFallback>
+                    </Avatar>
+                    {/* Active indicator */}
+                    {pin.time.includes("now") && (
+                      <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-white rounded-full" />
+                    )}
+                  </div>
+                ) : (
+                  <div className={`${colorClass} text-white p-3 rounded-full shadow-lg group-hover:scale-110 transition-transform duration-200 relative`}>
+                    <Icon className="h-5 w-5" strokeWidth={2} />
+                    
+                    {/* Pulse effect for SOS */}
+                    {pin.type === "sos" && (
+                      <div className="absolute inset-0 rounded-full bg-danger animate-ping opacity-75" />
+                    )}
+                  </div>
+                )}
                 
                 {/* Hover label */}
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
