@@ -10,6 +10,7 @@ const BottomNav = () => {
     { id: "discover", label: "Discover", icon: Compass, path: "/discover" },
     { id: "chats", label: "Chats", icon: MessageCircle, path: "/chats" },
     { id: "forum", label: "Community", icon: Users, path: "/forum" },
+    { id: "profile", label: "Profile", icon: User, path: "/profile" },
   ];
 
   return (
