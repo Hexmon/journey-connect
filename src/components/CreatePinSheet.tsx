@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { X, Users, Calendar, Car, HandHeart, Briefcase, Megaphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,15 +16,24 @@ interface CreatePinSheetProps {
 }
 
 const pinTypes = [
-  { id: "event" as PinType, label: "Event / Hangout", icon: Calendar, color: "secondary", description: "Organize a social gathering" },
-  { id: "meet" as PinType, label: "Meet People", icon: Users, color: "primary", description: "Be open to connect nearby" },
-  { id: "ride" as PinType, label: "Ride Share", icon: Car, color: "info", description: "Offer or find a ride" },
-  { id: "help" as PinType, label: "Community Help", icon: HandHeart, color: "success", description: "Ask for or offer help" },
-  { id: "news" as PinType, label: "Local Opportunity", icon: Briefcase, color: "news", description: "Share job or opportunity" },
-  { id: "news" as PinType, label: "News / Update", icon: Megaphone, color: "news", description: "Share local news" },
+  { id: "event" as PinType, label: "Event / Hangout", icon: Calendar, color: "secondary", description: "Organize a social gathering", path: "/create-event" },
+  { id: "meet" as PinType, label: "Meet People", icon: Users, color: "primary", description: "Be open to connect nearby", path: "/map" },
+  { id: "ride" as PinType, label: "Ride Share", icon: Car, color: "info", description: "Offer or find a ride", path: "/map" },
+  { id: "help" as PinType, label: "Community Help", icon: HandHeart, color: "success", description: "Ask for or offer help", path: "/map" },
+  { id: "news" as PinType, label: "Local Opportunity", icon: Briefcase, color: "news", description: "Share job or opportunity", path: "/map" },
+  { id: "news" as PinType, label: "News / Update", icon: Megaphone, color: "news", description: "Share local news", path: "/map" },
 ];
 
 const CreatePinSheet = ({ open, onClose }: CreatePinSheetProps) => {
+  const navigate = useNavigate();
+
+  const handleTypeClick = (path: string) => {
+    onClose();
+    if (path !== "/map") {
+      navigate(path);
+    }
+  };
+
   return (
     <Sheet open={open} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl p-0">
@@ -43,16 +53,13 @@ const CreatePinSheet = ({ open, onClose }: CreatePinSheetProps) => {
         </SheetHeader>
 
         <div className="p-6 space-y-3 overflow-y-auto" style={{ maxHeight: "calc(85vh - 100px)" }}>
-          {pinTypes.map((type) => {
+          {pinTypes.map((type, index) => {
             const Icon = type.icon;
             
             return (
               <button
-                key={`${type.id}-${type.label}`}
-                onClick={() => {
-                  // Navigate to create form for this type
-                  onClose();
-                }}
+                key={`${type.id}-${type.label}-${index}`}
+                onClick={() => handleTypeClick(type.path)}
                 className="w-full p-4 rounded-2xl border-2 border-border bg-card hover:border-primary/30 transition-all duration-200 flex items-center gap-4 text-left"
               >
                 <div

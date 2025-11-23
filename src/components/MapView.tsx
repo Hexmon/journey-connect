@@ -46,18 +46,28 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
   };
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-primary-soft/30 via-background to-secondary-soft/20 relative overflow-hidden">
-      {/* Subtle grid pattern to simulate map */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
-            linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
-        }}
-      />
+    <div className="w-full h-full bg-gradient-to-br from-primary-soft/20 via-background to-info-soft/10 relative overflow-hidden">
+      {/* Map-like background with streets */}
+      <div className="absolute inset-0 opacity-[0.15]">
+        {/* Vertical streets */}
+        <div className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-border" />
+        <div className="absolute top-0 bottom-0 left-[40%] w-[3px] bg-border" />
+        <div className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-border" />
+        <div className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-border" />
+        
+        {/* Horizontal streets */}
+        <div className="absolute left-0 right-0 top-[25%] h-[2px] bg-border" />
+        <div className="absolute left-0 right-0 top-[45%] h-[3px] bg-border" />
+        <div className="absolute left-0 right-0 top-[65%] h-[2px] bg-border" />
+        <div className="absolute left-0 right-0 top-[85%] h-[2px] bg-border" />
+      </div>
+      
+      {/* Park areas */}
+      <div className="absolute top-[10%] left-[10%] w-24 h-24 rounded-full bg-success/5 blur-2xl" />
+      <div className="absolute bottom-[15%] right-[15%] w-32 h-32 rounded-full bg-success/5 blur-2xl" />
+      
+      {/* Water body */}
+      <div className="absolute top-[40%] right-[5%] w-28 h-20 rounded-3xl bg-info/10 blur-xl" />
 
       {/* Map pins */}
       <div className="relative w-full h-full flex items-center justify-center p-8">

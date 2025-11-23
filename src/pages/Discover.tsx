@@ -2,26 +2,7 @@ import { Calendar, MapPin, Users } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 
-const mockItems = [
-  {
-    id: "1",
-    type: "event",
-    title: "Coffee & Co-work",
-    description: "Casual meetup for remote workers",
-    time: "Today 2PM",
-    distance: "800m away",
-    attendees: 5,
-  },
-  {
-    id: "2",
-    type: "meet",
-    title: "Looking for Cricket Players",
-    description: "Need 2 more for Sunday match",
-    time: "Sun 5PM",
-    distance: "1.2km away",
-    attendees: 8,
-  },
-];
+import { mockPins } from "@/data/mockData";
 
 const Discover = () => {
   return (
@@ -32,7 +13,7 @@ const Discover = () => {
           <p className="text-text-secondary mb-6">What's happening around you</p>
 
           <div className="space-y-3">
-            {mockItems.map((item) => (
+            {mockPins.slice(0, 5).map((item) => (
               <div
                 key={item.id}
                 className="bg-card border border-border rounded-2xl p-4 hover:border-primary/30 transition-all duration-200"
