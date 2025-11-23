@@ -1,5 +1,5 @@
 import { Pin } from "@/pages/Map";
-import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, AlertCircle } from "lucide-react";
+import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, AlertCircle, UserCircle } from "lucide-react";
 
 interface MapViewProps {
   pins: Pin[];
@@ -9,6 +9,8 @@ interface MapViewProps {
 const MapView = ({ pins, onPinClick }: MapViewProps) => {
   const getPinIcon = (type: Pin["type"]) => {
     switch (type) {
+      case "friend":
+        return UserCircle;
       case "meet":
         return Users;
       case "event":
@@ -28,6 +30,8 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
 
   const getPinColor = (type: Pin["type"]) => {
     switch (type) {
+      case "friend":
+        return "bg-accent";
       case "meet":
         return "bg-primary";
       case "event":

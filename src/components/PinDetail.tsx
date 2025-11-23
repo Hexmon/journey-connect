@@ -32,6 +32,8 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
   const [isSaved, setIsSaved] = useState(false);
   const getTypeLabel = (type: Pin["type"]) => {
     switch (type) {
+      case "friend":
+        return "Friend Nearby";
       case "meet":
         return "Meet People";
       case "event":
@@ -51,6 +53,8 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
 
   const getTypeColor = (type: Pin["type"]) => {
     switch (type) {
+      case "friend":
+        return "bg-accent/10 text-accent";
       case "meet":
         return "bg-primary-soft text-primary";
       case "event":
@@ -171,43 +175,49 @@ const PinDetail = ({ pin, open, onClose }: PinDetailProps) => {
 
           {/* Action Buttons */}
           <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="rounded-full flex-shrink-0"
-              onClick={handleSave}
-            >
-              <Bookmark className={`h-4 w-4 ${isSaved ? "fill-primary text-primary" : ""}`} />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="rounded-full flex-shrink-0"
-              onClick={handleShare}
-            >
-              <Share2 className="h-4 w-4" />
-            </Button>
+            {pin.type !== "friend" && (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="rounded-full flex-shrink-0"
+                  onClick={handleSave}
+                >
+                  <Bookmark className={`h-4 w-4 ${isSaved ? "fill-primary text-primary" : ""}`} />
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="rounded-full flex-shrink-0"
+                  onClick={handleShare}
+                >
+                  <Share2 className="h-4 w-4" />
+                </Button>
+              </>
+            )}
             <Button 
               variant="outline" 
               className="rounded-full flex-1"
               onClick={handleChat}
             >
               <MessageCircle className="h-4 w-4 mr-2" />
-              Chat
+              {pin.type === "friend" ? "Send Message" : "Chat"}
             </Button>
           </div>
         </div>
 
         {/* Bottom Action */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-card border-t border-border">
-          <Button 
-            className="w-full h-12 text-base rounded-full" 
-            size="lg"
-            onClick={handleJoin}
-          >
-            Join Event
-          </Button>
-        </div>
+        {pin.type !== "friend" && (
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-card border-t border-border">
+            <Button 
+              className="w-full h-12 text-base rounded-full" 
+              size="lg"
+              onClick={handleJoin}
+            >
+              Join Event
+            </Button>
+          </div>
+        )}
       </SheetContent>
 
       {/* Join Confirmation Dialog */}
