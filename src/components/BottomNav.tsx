@@ -1,4 +1,4 @@
-import { MapPin, Compass, MessageCircle, User } from "lucide-react";
+import { MapPin, Compass, MessageCircle, Users, User } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const BottomNav = () => {
@@ -9,20 +9,20 @@ const BottomNav = () => {
     { id: "map", label: "Map", icon: MapPin, path: "/map" },
     { id: "discover", label: "Discover", icon: Compass, path: "/discover" },
     { id: "chats", label: "Chats", icon: MessageCircle, path: "/chats" },
-    { id: "profile", label: "Profile", icon: User, path: "/profile" },
+    { id: "forum", label: "Community", icon: Users, path: "/forum" },
   ];
 
   return (
-    <nav className="bg-card border-t border-border h-20 flex items-center justify-around px-4 safe-area-bottom">
+    <nav className="bg-card border-t border-border h-20 flex items-center justify-around px-2 safe-area-bottom">
       {tabs.map((tab) => {
         const Icon = tab.icon;
-        const isActive = location.pathname === tab.path;
+        const isActive = location.pathname === tab.path || location.pathname.startsWith(tab.path + "/");
 
         return (
           <button
             key={tab.id}
             onClick={() => navigate(tab.path)}
-            className="flex flex-col items-center gap-1 py-2 px-4 rounded-xl transition-all duration-200 min-w-[72px]"
+            className="flex flex-col items-center gap-1 py-2 px-3 rounded-xl transition-all duration-200 min-w-[64px]"
           >
             <div
               className={`p-2 rounded-xl transition-colors duration-200 ${

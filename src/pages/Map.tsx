@@ -6,6 +6,7 @@ import BottomNav from "@/components/BottomNav";
 import FilterBar from "@/components/FilterBar";
 import PinDetail from "@/components/PinDetail";
 import CreatePinSheet from "@/components/CreatePinSheet";
+import SOSButton from "@/components/SOSButton";
 
 export type PinType = "meet" | "event" | "ride" | "help" | "sos" | "news";
 
@@ -21,41 +22,7 @@ export interface Pin {
   location: { lat: number; lng: number };
 }
 
-const mockPins: Pin[] = [
-  {
-    id: "1",
-    type: "event",
-    title: "Coffee & Co-work",
-    description: "Casual meetup for remote workers. Bring your laptop!",
-    distance: "800m away",
-    time: "Today 2PM",
-    attendees: 5,
-    host: "Sarah K.",
-    location: { lat: 0, lng: 0 },
-  },
-  {
-    id: "2",
-    type: "meet",
-    title: "Looking for Cricket Players",
-    description: "Need 2 more for Sunday match",
-    distance: "1.2km away",
-    time: "Sun 5PM",
-    attendees: 8,
-    host: "Rohan M.",
-    location: { lat: 0.01, lng: 0.01 },
-  },
-  {
-    id: "3",
-    type: "ride",
-    title: "Ride to Airport",
-    description: "Leaving tomorrow 6AM, 2 seats available",
-    distance: "2km away",
-    time: "Tomorrow 6AM",
-    attendees: 2,
-    host: "Mike P.",
-    location: { lat: -0.01, lng: 0.01 },
-  },
-];
+import { mockPins } from "@/data/mockData";
 
 const Map = () => {
   const [selectedFilters, setSelectedFilters] = useState<PinType[]>(["meet", "event", "ride", "help", "news"]);
@@ -88,6 +55,9 @@ const Map = () => {
         >
           <Plus className="h-6 w-6" />
         </button>
+
+        {/* SOS Button */}
+        <SOSButton />
       </div>
 
       {/* Bottom Navigation */}

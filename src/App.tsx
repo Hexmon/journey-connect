@@ -11,7 +11,10 @@ import OnboardingSafety from "./pages/OnboardingSafety";
 import Map from "./pages/Map";
 import Discover from "./pages/Discover";
 import Chats from "./pages/Chats";
+import ChatRoom from "./pages/ChatRoom";
+import Forum from "./pages/Forum";
 import Profile from "./pages/Profile";
+import CreateEvent from "./pages/CreateEvent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,7 +35,10 @@ const App = () => (
           <Route path="/map" element={<Map />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/chats" element={<Chats />} />
+          <Route path="/chat/:chatId" element={<ChatRoom />} />
+          <Route path="/forum" element={<Forum />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-event" element={<CreateEvent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
