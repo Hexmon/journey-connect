@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Splash from "./pages/Splash";
 import Onboarding from "./pages/Onboarding";
+import OnboardingUsername from "./pages/OnboardingUsername";
 import OnboardingIntent from "./pages/OnboardingIntent";
 import OnboardingInterests from "./pages/OnboardingInterests";
 import OnboardingSafety from "./pages/OnboardingSafety";
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/" element={<Navigate to="/splash" replace />} />
           <Route path="/splash" element={<Splash />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/onboarding/username" element={<OnboardingUsername />} />
           <Route path="/onboarding/intent" element={<OnboardingIntent />} />
           <Route path="/onboarding/interests" element={<OnboardingInterests />} />
           <Route path="/onboarding/safety" element={<OnboardingSafety />} />
