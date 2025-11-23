@@ -13,7 +13,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <nav className="bg-card border-t border-border h-20 flex items-center justify-around px-2 safe-area-bottom">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border h-20 flex items-center justify-around px-2 safe-area-bottom">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = location.pathname === tab.path || location.pathname.startsWith(tab.path + "/");
