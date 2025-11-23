@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Calendar, MapPin, Users, Heart, MessageCircle, Share2, MoreHorizontal, Bookmark, AlertCircle, Clock, Car, HandHeart, Megaphone } from "lucide-react";
+import { Calendar, MapPin, Users, Heart, MessageCircle, Share2, Bookmark, AlertCircle, Clock, Car, HandHeart, Megaphone, Search, SlidersHorizontal, X } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import PostShareSheet from "@/components/PostShareSheet";
 import PostDetailSheet from "@/components/PostDetailSheet";
 import { mockPins } from "@/data/mockData";
@@ -15,6 +16,19 @@ const Discover = () => {
   const [detailOpen, setDetailOpen] = useState(false);
   const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set());
   const [savedPosts, setSavedPosts] = useState<Set<string>>(new Set());
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [showFilters, setShowFilters] = useState(false);
+
+  const filters = [
+    { id: "all", label: "All", icon: Users },
+    { id: "event", label: "Events", icon: Calendar },
+    { id: "meet", label: "Meet", icon: Users },
+    { id: "ride", label: "Rides", icon: Car },
+    { id: "help", label: "Help", icon: HandHeart },
+    { id: "sos", label: "SOS", icon: AlertCircle },
+    { id: "news", label: "News", icon: Megaphone },
+  ];
 
   const handleLike = (postId: string) => {
     setLikedPosts(prev => {
@@ -52,6 +66,13 @@ const Discover = () => {
     setSelectedPost(post);
     setDetailOpen(true);
   };
+
+  const filteredPosts = mockPins.filter((post) => {
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = activeFilter === "all" || post.type === activeFilter;
+    return matchesSearch && matchesFilter;
+  });
 
   const getCardStyle = (type: string) => {
     switch (type) {
@@ -116,18 +137,69 @@ const Discover = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
+      {/* Header with Search */}
       <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-lg border-b border-border">
-        <div className="px-6 py-4">
-          <h1 className="text-2xl font-bold">Discover</h1>
-          <p className="text-sm text-muted-foreground">What's happening around you</p>
+        <div className="px-4 py-3 space-y-3">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Discover</h1>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowFilters(!showFilters)}
+              className={showFilters ? "bg-primary/10 text-primary" : ""}
+            >
+              <SlidersHorizontal className="h-5 w-5" />
+            </Button>
+          </div>
+
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search events, meetups, rides..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 h-11 rounded-full bg-muted/50"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2"
+              >
+                <X className="h-4 w-4 text-muted-foreground" />
+              </button>
+            )}
+          </div>
+
+          {/* Filter Chips */}
+          {showFilters && (
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+              {filters.map((filter) => {
+                const FilterIcon = filter.icon;
+                return (
+                  <button
+                    key={filter.id}
+                    onClick={() => setActiveFilter(filter.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${
+                      activeFilter === filter.id
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted hover:bg-muted/80"
+                    }`}
+                  >
+                    <FilterIcon className="h-4 w-4" />
+                    <span className="text-sm font-medium">{filter.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
       {/* Feed */}
       <div className="flex-1 overflow-y-auto pb-24">
         <div className="p-4 space-y-4">
-          {mockPins.map((post) => {
+          {filteredPosts.map((post) => {
             const isLiked = likedPosts.has(post.id);
             const isSaved = savedPosts.has(post.id);
             const style = getCardStyle(post.type);
@@ -171,41 +243,53 @@ const Discover = () => {
                   </Badge>
                 </div>
 
-                {/* Post Content Card */}
+                {/* Post Content Card with Image */}
                 <div 
                   onClick={() => handleViewDetails(post)}
-                  className={`mx-4 mb-4 rounded-2xl bg-gradient-to-br ${style.gradient} p-6 cursor-pointer relative overflow-hidden`}
+                  className="mx-4 mb-4 rounded-2xl overflow-hidden cursor-pointer relative group"
                 >
-                  {/* Decorative background icon */}
-                  <div className={`absolute top-4 right-4 ${style.iconColor} opacity-10`}>
-                    <Icon className="h-24 w-24" strokeWidth={1.5} />
+                  {/* Image/Video Placeholder */}
+                  <div className={`aspect-video bg-gradient-to-br ${style.gradient} relative`}>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Icon className={`h-16 w-16 ${style.iconColor} opacity-30`} strokeWidth={1.5} />
+                    </div>
+                    {/* Overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    
+                    {/* Content overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <h2 className="text-lg font-bold mb-1 line-clamp-2">{post.title}</h2>
+                      <p className="text-xs opacity-90 line-clamp-2">
+                        {post.description}
+                      </p>
+                    </div>
+
+                    {/* View Details Button Overlay */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Button className="rounded-full" size="sm">
+                        View Details
+                      </Button>
+                    </div>
                   </div>
 
-                  <div className="relative z-10">
-                    <h2 className="text-xl font-bold mb-2 line-clamp-2">{post.title}</h2>
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                      {post.description}
-                    </p>
-
-                    {/* Info Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {!isUrgent && (
-                        <div className="flex items-center gap-1.5 bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs">
-                          <Calendar className="h-3.5 w-3.5" />
-                          <span>{post.time}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center gap-1.5 bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs">
-                        <Users className="h-3.5 w-3.5" />
-                        <span>{post.attendees} {post.type === "help" || post.type === "sos" ? "responses" : "going"}</span>
+                  {/* Info Tags */}
+                  <div className="p-3 bg-card/95 backdrop-blur-sm flex flex-wrap gap-2">
+                    {!isUrgent && (
+                      <div className="flex items-center gap-1.5 bg-muted px-2.5 py-1 rounded-full text-xs">
+                        <Calendar className="h-3 w-3" />
+                        <span>{post.time}</span>
                       </div>
-                      {isUrgent && (
-                        <div className="flex items-center gap-1.5 bg-danger/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs text-danger font-semibold animate-pulse">
-                          <AlertCircle className="h-3.5 w-3.5" />
-                          <span>URGENT</span>
-                        </div>
-                      )}
+                    )}
+                    <div className="flex items-center gap-1.5 bg-muted px-2.5 py-1 rounded-full text-xs">
+                      <Users className="h-3 w-3" />
+                      <span>{post.attendees} {post.type === "help" || post.type === "sos" ? "responses" : "interested"}</span>
                     </div>
+                    {isUrgent && (
+                      <div className="flex items-center gap-1.5 bg-danger/20 px-2.5 py-1 rounded-full text-xs text-danger font-semibold animate-pulse">
+                        <AlertCircle className="h-3 w-3" />
+                        <span>URGENT</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
