@@ -46,28 +46,49 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
   };
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-primary-soft/20 via-background to-info-soft/10 relative overflow-hidden">
-      {/* Map-like background with streets */}
-      <div className="absolute inset-0 opacity-[0.15]">
-        {/* Vertical streets */}
-        <div className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-border" />
-        <div className="absolute top-0 bottom-0 left-[40%] w-[3px] bg-border" />
-        <div className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-border" />
-        <div className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-border" />
+    <div className="w-full h-full bg-[#f5f5f0] relative overflow-hidden">
+      {/* Realistic street grid */}
+      <svg className="absolute inset-0 w-full h-full opacity-30">
+        {/* Major highways */}
+        <line x1="0" y1="30%" x2="100%" y2="30%" stroke="#d4d4d4" strokeWidth="4" />
+        <line x1="0" y1="65%" x2="100%" y2="65%" stroke="#d4d4d4" strokeWidth="4" />
+        <line x1="30%" y1="0" x2="30%" y2="100%" stroke="#d4d4d4" strokeWidth="4" />
+        <line x1="70%" y1="0" x2="70%" y2="100%" stroke="#d4d4d4" strokeWidth="4" />
         
-        {/* Horizontal streets */}
-        <div className="absolute left-0 right-0 top-[25%] h-[2px] bg-border" />
-        <div className="absolute left-0 right-0 top-[45%] h-[3px] bg-border" />
-        <div className="absolute left-0 right-0 top-[65%] h-[2px] bg-border" />
-        <div className="absolute left-0 right-0 top-[85%] h-[2px] bg-border" />
-      </div>
-      
-      {/* Park areas */}
-      <div className="absolute top-[10%] left-[10%] w-24 h-24 rounded-full bg-success/5 blur-2xl" />
-      <div className="absolute bottom-[15%] right-[15%] w-32 h-32 rounded-full bg-success/5 blur-2xl" />
-      
-      {/* Water body */}
-      <div className="absolute top-[40%] right-[5%] w-28 h-20 rounded-3xl bg-info/10 blur-xl" />
+        {/* Secondary roads */}
+        <line x1="0" y1="15%" x2="100%" y2="15%" stroke="#e5e5e5" strokeWidth="2" />
+        <line x1="0" y1="45%" x2="100%" y2="45%" stroke="#e5e5e5" strokeWidth="2" />
+        <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#e5e5e5" strokeWidth="2" />
+        <line x1="15%" y1="0" x2="15%" y2="100%" stroke="#e5e5e5" strokeWidth="2" />
+        <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#e5e5e5" strokeWidth="2" />
+        <line x1="85%" y1="0" x2="85%" y2="100%" stroke="#e5e5e5" strokeWidth="2" />
+        
+        {/* Small streets */}
+        <line x1="0" y1="22%" x2="100%" y2="22%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="0" y1="38%" x2="100%" y2="38%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="0" y1="57%" x2="100%" y2="57%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="0" y1="73%" x2="100%" y2="73%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="22%" y1="0" x2="22%" y2="100%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="42%" y1="0" x2="42%" y2="100%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="58%" y1="0" x2="58%" y2="100%" stroke="#f0f0f0" strokeWidth="1" />
+        <line x1="78%" y1="0" x2="78%" y2="100%" stroke="#f0f0f0" strokeWidth="1" />
+      </svg>
+
+      {/* Park/Green areas */}
+      <div className="absolute top-[8%] left-[12%] w-56 h-56 bg-green-200/30 rounded-[40%_60%_70%_30%/40%_50%_60%_50%]" />
+      <div className="absolute top-[55%] right-[18%] w-64 h-64 bg-green-200/30 rounded-[60%_40%_30%_70%/60%_30%_70%_40%]" />
+      <div className="absolute bottom-[3%] left-[35%] w-48 h-48 bg-green-200/30 rounded-[50%_50%_50%_50%/60%_40%_60%_40%]" />
+
+      {/* Water bodies */}
+      <div className="absolute top-[35%] right-[8%] w-40 h-32 bg-blue-200/35 rounded-[30%_70%_70%_30%/30%_30%_70%_70%]" />
+      <div className="absolute bottom-[20%] left-[8%] w-52 h-40 bg-blue-200/35 rounded-[60%_40%_30%_70%/50%_50%_50%_50%]" />
+
+      {/* Building blocks */}
+      <div className="absolute top-[18%] left-[48%] w-20 h-16 bg-gray-300/20 rounded-sm" />
+      <div className="absolute top-[25%] left-[75%] w-16 h-20 bg-gray-300/20 rounded-sm" />
+      <div className="absolute top-[60%] left-[65%] w-24 h-18 bg-gray-300/20 rounded-sm" />
+      <div className="absolute top-[38%] left-[25%] w-14 h-16 bg-gray-300/20 rounded-sm" />
+      <div className="absolute bottom-[25%] right-[40%] w-18 h-22 bg-gray-300/20 rounded-sm" />
 
       {/* Map pins */}
       <div className="relative w-full h-full flex items-center justify-center p-8">
