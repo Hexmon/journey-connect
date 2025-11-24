@@ -23,11 +23,11 @@ const BottomNav = () => {
           <button
             key={tab.id}
             onClick={() => navigate(tab.path)}
-            className="flex flex-col items-center gap-1 py-2 px-3 rounded-xl transition-all duration-200 min-w-[64px]"
+            className="flex flex-col items-center gap-1 py-2 px-3 rounded-xl transition-spring min-w-[64px] tap-scale"
           >
             <div
-              className={`p-2 rounded-xl transition-colors duration-200 ${
-                isActive ? "bg-primary" : "bg-transparent"
+              className={`p-2 rounded-xl transition-spring ${
+                isActive ? "bg-gradient-instagram" : "bg-transparent"
               }`}
             >
               <Icon
@@ -38,7 +38,7 @@ const BottomNav = () => {
               />
             </div>
             <span
-              className={`text-xs font-medium ${
+              className={`text-xs font-medium transition-smooth ${
                 isActive ? "text-primary" : "text-muted-foreground"
               }`}
             >

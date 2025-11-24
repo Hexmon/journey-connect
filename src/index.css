@@ -8,67 +8,76 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Journey App - Sunrise Over City Theme */
+    /* Journey App - Instagram-Inspired Theme */
     
     /* Base surfaces */
-    --background: 220 14% 98%; /* #F9FAFB */
-    --foreground: 220 26% 14%; /* #111827 - textPrimary */
+    --background: 0 0% 100%; /* Pure white like Instagram */
+    --foreground: 0 0% 0%; /* Pure black for text */
     
-    --card: 0 0% 100%; /* #FFFFFF - surface */
-    --card-foreground: 220 26% 14%;
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 0 0% 0%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 220 26% 14%;
+    --popover-foreground: 0 0% 0%;
     
-    /* Primary - Main Brand Blue (#2563EB) */
-    --primary: 217 91% 60%; /* #2563EB */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF - onPrimary */
-    --primary-soft: 217 100% 94%; /* #E0ECFF - primarySoft */
-    --primary-dark: 217 91% 48%; /* #1D4ED8 - primaryDark */
+    /* Primary - Instagram Purple/Pink Gradient */
+    --primary: 291 64% 42%; /* #833AB4 - Instagram purple */
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 291 64% 95%;
+    --primary-dark: 291 64% 35%;
     
-    /* Secondary - Warm Orange for Events (#F97316) */
-    --secondary: 25 95% 53%; /* #F97316 */
-    --secondary-foreground: 0 0% 100%; /* #FFFFFF - onSecondary */
-    --secondary-soft: 25 100% 91%; /* #FFE8D3 - secondarySoft */
+    /* Secondary - Instagram Pink */
+    --secondary: 330 81% 60%; /* #E1306C - Instagram pink */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 330 81% 95%;
     
-    /* Danger - SOS/Destructive (#DC2626) */
-    --destructive: 0 72% 51%; /* #DC2626 */
+    /* Accent - Instagram Orange */
+    --accent: 25 95% 60%; /* #F77737 - Instagram orange */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Danger - SOS/Destructive */
+    --destructive: 0 91% 71%; /* #FD1D1D - Instagram red */
     --destructive-foreground: 0 0% 100%;
-    --danger-soft: 0 86% 94%; /* #FEE2E2 */
+    --danger-soft: 0 91% 95%;
     
-    /* Success - Community Help (#16A34A) */
-    --success: 142 71% 37%; /* #16A34A */
-    --success-soft: 138 76% 93%; /* #DCFCE7 */
+    /* Success - Community Help */
+    --success: 142 76% 36%;
+    --success-soft: 142 76% 95%;
     
-    /* Info - Ride Share (#0EA5E9) */
-    --info: 199 89% 48%; /* #0EA5E9 */
-    --info-soft: 199 95% 94%; /* #E0F2FE */
+    /* Info - Ride Share */
+    --info: 199 89% 48%;
+    --info-soft: 199 95% 95%;
     
-    /* News/Openings - Purple/Indigo */
-    --news: 243 75% 59%; /* #6366F1 */
-    --news-soft: 244 100% 95%;
+    /* News - Purple */
+    --news: 260 64% 55%;
+    --news-soft: 260 64% 95%;
     
-    /* Neutrals */
-    --muted: 220 14% 96%; /* #F3F4F6 - surfaceMuted */
-    --muted-foreground: 220 9% 46%; /* #9CA3AF - textMuted */
+    /* Neutrals - Instagram style */
+    --muted: 0 0% 96%; /* Light gray */
+    --muted-foreground: 0 0% 60%; /* Medium gray */
     
-    --accent: 220 14% 96%;
-    --accent-foreground: 220 26% 14%;
+    --text-secondary: 0 0% 45%;
     
-    --text-secondary: 220 13% 35%; /* #4B5563 */
+    --border: 0 0% 90%; /* Light borders */
+    --input: 0 0% 90%;
+    --ring: 291 64% 42%;
     
-    --border: 220 13% 91%; /* #E5E7EB - divider */
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
+    --radius: 1rem;
     
-    --radius: 1rem; /* 16px for cards */
+    /* Instagram Gradient */
+    --gradient-instagram: linear-gradient(45deg, #833AB4, #C13584, #E1306C, #FD1D1D, #F77737);
     
-    /* Shadows */
-    --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-    --shadow-medium: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    /* iOS Smooth Shadows */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.12);
     
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* iOS Spring Animations */
+    --spring-smooth: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --spring-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --transition-spring: all 0.6s var(--spring-smooth);
+    --transition-smooth: all 0.3s var(--ease-out-expo);
   }
 }
 
@@ -79,27 +88,101 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* iOS-style smooth scrolling */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  
+  button, a {
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 
-/* Animations */
+/* iOS-style Animations */
 @layer utilities {
+  /* Smooth fade in with spring */
   .animate-in {
-    animation: animate-in 0.3s ease-out;
+    animation: animate-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
   @keyframes animate-in {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px) scale(0.95);
     }
     to {
       opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Bounce in animation */
+  .animate-bounce-in {
+    animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Slide in from bottom (iOS sheet style) */
+  .animate-slide-up {
+    animation: slide-up 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
       transform: translateY(0);
     }
   }
   
+  /* Scale tap feedback */
+  .tap-scale {
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .tap-scale:active {
+    transform: scale(0.95);
+  }
+  
+  /* Instagram gradient background */
+  .bg-gradient-instagram {
+    background: linear-gradient(45deg, #833AB4, #C13584, #E1306C, #FD1D1D, #F77737);
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  .transition-spring {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  /* Scrollbar styles */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -107,6 +190,12 @@ All colors MUST be HSL.
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  /* iOS-style scrolling */
+  .scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
   }
   
   .safe-area-bottom {
