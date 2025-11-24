@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, Plus, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MapView from "@/components/MapView";
@@ -32,25 +32,48 @@ const Map = () => {
   const [createPinOpen, setCreatePinOpen] = useState(false);
   const [radius, setRadius] = useState(3);
   const [showNav, setShowNav] = useState(true);
-  const [lastTap, setLastTap] = useState(0);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const hideTimeout = useRef<NodeJS.Timeout>();
 
   const filteredPins = mockPins.filter((pin) => selectedFilters.includes(pin.type));
 
-  const handleMapTap = () => {
-    const now = Date.now();
-    const timeSinceLastTap = now - lastTap;
-    setLastTap(now);
-    
-    if (timeSinceLastTap < 300) {
-      // Double tap detected
-      setShowNav(!showNav);
+  // Auto-hide nav on map interaction
+  useEffect(() => {
+    if (isInteracting) {
+      setShowNav(false);
+      
+      // Clear existing timeout
+      if (hideTimeout.current) {
+        clearTimeout(hideTimeout.current);
+      }
+      
+      // Show nav again after 3 seconds of no interaction
+      hideTimeout.current = setTimeout(() => {
+        setShowNav(true);
+        setIsInteracting(false);
+      }, 3000);
     }
+    
+    return () => {
+      if (hideTimeout.current) {
+        clearTimeout(hideTimeout.current);
+      }
+    };
+  }, [isInteracting]);
+
+  const handleMapInteraction = () => {
+    setIsInteracting(true);
   };
 
   return (
     <div className="h-screen flex flex-col bg-background">
       {/* Map Container */}
-      <div className="flex-1 relative" onClick={handleMapTap}>
+      <div 
+        className="flex-1 relative" 
+        onMouseMove={handleMapInteraction}
+        onTouchMove={handleMapInteraction}
+        onWheel={handleMapInteraction}
+      >
         <MapView pins={filteredPins} onPinClick={setSelectedPin} />
         
         {/* Filter Bar */}
