@@ -108,7 +108,7 @@ const SOSButton = () => {
         onMouseLeave={cancelHold}
         onTouchStart={startHold}
         onTouchEnd={cancelHold}
-        className="fixed bottom-32 right-6 h-16 w-16 rounded-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center z-20 relative overflow-hidden"
+        className="fixed left-6 top-1/3 -translate-y-1/2 h-16 w-16 rounded-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center z-20 relative overflow-hidden"
       >
         {isHolding && (
           <div
