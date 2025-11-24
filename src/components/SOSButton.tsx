@@ -108,7 +108,7 @@ const SOSButton = () => {
         onMouseLeave={cancelHold}
         onTouchStart={startHold}
         onTouchEnd={cancelHold}
-        className="fixed left-6 top-1/3 -translate-y-1/2 h-16 w-16 rounded-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center z-20 relative overflow-hidden"
+        className="fixed left-0 top-[55%] h-12 w-12 rounded-r-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center z-20 relative overflow-hidden hover:translate-x-1 pl-2"
       >
         {isHolding && (
           <div
@@ -120,7 +120,7 @@ const SOSButton = () => {
             }}
           />
         )}
-        <AlertCircle className="h-8 w-8 relative z-10" strokeWidth={2.5} />
+        <AlertCircle className="h-6 w-6 relative z-10" strokeWidth={2.5} />
         {isHolding && (
           <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-ping" />
         )}

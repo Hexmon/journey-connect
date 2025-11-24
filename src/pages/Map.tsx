@@ -63,12 +63,12 @@ const Map = () => {
           />
         </div>
 
-        {/* FAB - Fixed to left side */}
+        {/* FAB - Attached to left side */}
         <button
           onClick={() => setCreatePinOpen(true)}
-          className="fixed left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-10 hover:scale-105 active:scale-95"
+          className="fixed left-0 top-[45%] h-12 w-12 rounded-r-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-10 hover:translate-x-1 active:scale-95 pl-2"
         >
-          <Plus className="h-6 w-6" />
+          <Plus className="h-5 w-5" />
         </button>
 
         {/* SOS Button */}
