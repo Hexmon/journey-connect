@@ -11,6 +11,8 @@ export const mockPins: Pin[] = [
     attendees: 5,
     host: "Sarah K.",
     location: { lat: 0.003, lng: 0.002 },
+    avatar: "SK",
+    userName: "Sarah K.",
   },
   {
     id: "2",
@@ -22,6 +24,8 @@ export const mockPins: Pin[] = [
     attendees: 8,
     host: "Rohan M.",
     location: { lat: 0.01, lng: 0.01 },
+    avatar: "RM",
+    userName: "Rohan M.",
   },
   {
     id: "3",
@@ -33,6 +37,8 @@ export const mockPins: Pin[] = [
     attendees: 2,
     host: "Mike P.",
     location: { lat: -0.01, lng: 0.01 },
+    avatar: "MP",
+    userName: "Mike P.",
   },
   {
     id: "4",
@@ -44,6 +50,8 @@ export const mockPins: Pin[] = [
     attendees: 3,
     host: "Emma L.",
     location: { lat: 0.008, lng: -0.008 },
+    avatar: "EL",
+    userName: "Emma L.",
   },
   {
     id: "5",
@@ -55,6 +63,8 @@ export const mockPins: Pin[] = [
     attendees: 0,
     host: "Local Business",
     location: { lat: -0.005, lng: 0.003 },
+    avatar: "LB",
+    userName: "Local Business",
   },
   {
     id: "6",
@@ -66,6 +76,8 @@ export const mockPins: Pin[] = [
     attendees: 12,
     host: "Alex R.",
     location: { lat: 0.007, lng: 0.009 },
+    avatar: "AR",
+    userName: "Alex R.",
   },
   {
     id: "7",
@@ -77,6 +89,8 @@ export const mockPins: Pin[] = [
     attendees: 1,
     host: "Priya S.",
     location: { lat: -0.006, lng: -0.004 },
+    avatar: "PS",
+    userName: "Priya S.",
   },
   {
     id: "8",
@@ -88,6 +102,8 @@ export const mockPins: Pin[] = [
     attendees: 2,
     host: "David C.",
     location: { lat: 0.012, lng: -0.007 },
+    avatar: "DC",
+    userName: "David C.",
   },
   {
     id: "9",
