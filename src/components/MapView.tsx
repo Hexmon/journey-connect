@@ -1,6 +1,5 @@
 import { Pin } from "@/pages/Map";
-import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, AlertCircle } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface MapViewProps {
   pins: Pin[];
@@ -8,22 +7,24 @@ interface MapViewProps {
 }
 
 const MapView = ({ pins, onPinClick }: MapViewProps) => {
-  const getPinIcon = (type: Pin["type"]) => {
+  const getPinEmoji = (type: Pin["type"]) => {
     switch (type) {
       case "meet":
-        return Users;
+        return "🤝";
       case "event":
-        return Calendar;
+        return "🎉";
       case "ride":
-        return Car;
+        return "🚗";
       case "help":
-        return HandHeart;
+        return "💚";
       case "sos":
-        return AlertCircle;
+        return "🆘";
       case "news":
-        return Megaphone;
+        return "📰";
+      case "friends":
+        return "👥";
       default:
-        return MapPin;
+        return "📍";
     }
   };
 
@@ -96,7 +97,7 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
       {/* Map pins */}
       <div className="relative w-full h-full flex items-center justify-center p-8">
         {pins.map((pin, index) => {
-          const Icon = getPinIcon(pin.type);
+          const emoji = getPinEmoji(pin.type);
           const colorClass = getPinColor(pin.type);
           
           // Position pins in a scattered pattern
@@ -125,20 +126,40 @@ const MapView = ({ pins, onPinClick }: MapViewProps) => {
                 {/* Pin shadow */}
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-1.5 bg-foreground/20 rounded-full blur-sm" />
                 
-                {/* Pin body - Show avatar for all pins */}
+                {/* Pin body - Show avatars for friends, emoji badges for activities */}
                 <div className="relative">
-                  <Avatar className={`h-12 w-12 border-4 shadow-lg group-hover:scale-110 transition-transform duration-200 ${colorClass} ${pin.type === "sos" ? "animate-pulse" : ""}`}>
-                    <AvatarFallback className={`${colorClass} text-white font-semibold`}>
-                      {pin.avatar || pin.userName?.slice(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  {/* Active indicator for friends */}
-                  {pin.type === "friends" && pin.time.includes("now") && (
-                    <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-white rounded-full" />
-                  )}
-                  {/* Pulse effect for SOS */}
-                  {pin.type === "sos" && (
-                    <div className="absolute inset-0 rounded-full bg-danger animate-ping opacity-75" />
+                  {pin.type === "friends" ? (
+                    // Friends show real avatars
+                    <>
+                      <Avatar className="h-14 w-14 border-4 border-accent shadow-lg group-hover:scale-110 transition-transform duration-200">
+                        <AvatarImage src={pin.avatarImage} alt={pin.userName} />
+                        <AvatarFallback className="bg-accent text-accent-foreground font-semibold">
+                          {pin.avatar}
+                        </AvatarFallback>
+                      </Avatar>
+                      {/* Active indicator for friends */}
+                      {pin.time.includes("now") && (
+                        <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success border-2 border-white rounded-full" />
+                      )}
+                    </>
+                  ) : (
+                    // Activities show avatar with emoji badge
+                    <div className="relative">
+                      <Avatar className="h-14 w-14 border-4 border-white shadow-lg group-hover:scale-110 transition-transform duration-200">
+                        <AvatarImage src={pin.avatarImage} alt={pin.host} />
+                        <AvatarFallback className="bg-muted text-muted-foreground font-semibold">
+                          {pin.avatar}
+                        </AvatarFallback>
+                      </Avatar>
+                      {/* Emoji badge for activity type */}
+                      <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full ${colorClass} border-2 border-white shadow-md flex items-center justify-center text-sm ${pin.type === "sos" ? "animate-pulse" : ""}`}>
+                        {emoji}
+                      </div>
+                      {/* Pulse effect for SOS */}
+                      {pin.type === "sos" && (
+                        <div className="absolute inset-0 rounded-full bg-danger animate-ping opacity-75" />
+                      )}
+                    </div>
                   )}
                 </div>
                 

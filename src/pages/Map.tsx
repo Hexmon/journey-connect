@@ -23,6 +23,7 @@ export interface Pin {
   location: { lat: number; lng: number };
   avatar?: string;
   userName?: string;
+  avatarImage?: string;
 }
 
 import { mockPins } from "@/data/mockData";
