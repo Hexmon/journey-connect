@@ -102,16 +102,14 @@ const SOSButton = () => {
 
   return (
     <>
-      <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20 pointer-events-none">
-        <div className="pointer-events-auto" /> {/* Spacer for add button */}
-        <button
-          onMouseDown={startHold}
-          onMouseUp={cancelHold}
-          onMouseLeave={cancelHold}
-          onTouchStart={startHold}
-          onTouchEnd={cancelHold}
-          className="h-12 w-12 rounded-r-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center relative overflow-hidden hover:translate-x-1 pl-2 pointer-events-auto"
-        >
+      <button
+        onMouseDown={startHold}
+        onMouseUp={cancelHold}
+        onMouseLeave={cancelHold}
+        onTouchStart={startHold}
+        onTouchEnd={cancelHold}
+        className="h-12 w-12 rounded-r-full bg-danger text-white shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center relative overflow-hidden hover:translate-x-1 pl-2"
+      >
         {isHolding && (
           <div
             className="absolute inset-0 bg-danger-soft transition-all"
@@ -122,12 +120,11 @@ const SOSButton = () => {
             }}
           />
         )}
-          <AlertCircle className="h-6 w-6 relative z-10" strokeWidth={2.5} />
-          {isHolding && (
-            <div className="absolute inset-0 rounded-r-full border-4 border-white/30 animate-ping" />
-          )}
-        </button>
-      </div>
+        <AlertCircle className="h-6 w-6 relative z-10" strokeWidth={2.5} />
+        {isHolding && (
+          <div className="absolute inset-0 rounded-r-full border-4 border-white/30 animate-ping" />
+        )}
+      </button>
 
       <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
         <DialogContent className="max-w-md">
