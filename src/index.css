@@ -79,6 +79,70 @@ All colors MUST be HSL.
     --transition-spring: all 0.6s var(--spring-smooth);
     --transition-smooth: all 0.3s var(--ease-out-expo);
   }
+  
+  .dark {
+    /* Instagram Dark Mode - Matches Instagram's dark theme */
+    
+    /* Base surfaces - Instagram dark gray */
+    --background: 0 0% 0%; /* Pure black like Instagram dark */
+    --foreground: 0 0% 97%; /* Off-white for text */
+    
+    --card: 0 0% 7%; /* Dark gray cards */
+    --card-foreground: 0 0% 97%;
+    
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 97%;
+    
+    /* Primary - Instagram Purple (brighter in dark mode) */
+    --primary: 291 75% 58%; /* Brighter purple for dark mode */
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 291 75% 15%;
+    --primary-dark: 291 75% 45%;
+    
+    /* Secondary - Instagram Pink (brighter in dark mode) */
+    --secondary: 330 85% 65%; /* Brighter pink for dark mode */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-soft: 330 85% 15%;
+    
+    /* Accent - Instagram Orange (brighter in dark mode) */
+    --accent: 25 95% 65%; /* Brighter orange for dark mode */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Danger - SOS/Destructive */
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 0% 100%;
+    --danger-soft: 0 91% 15%;
+    
+    /* Success */
+    --success: 142 76% 45%;
+    --success-soft: 142 76% 15%;
+    
+    /* Info */
+    --info: 199 89% 55%;
+    --info-soft: 199 95% 15%;
+    
+    /* News */
+    --news: 260 64% 65%;
+    --news-soft: 260 64% 15%;
+    
+    /* Neutrals - Instagram dark style */
+    --muted: 0 0% 14%; /* Dark gray */
+    --muted-foreground: 0 0% 60%; /* Medium gray */
+    
+    --text-secondary: 0 0% 65%;
+    
+    --border: 0 0% 20%; /* Darker borders */
+    --input: 0 0% 20%;
+    --ring: 291 75% 58%;
+    
+    /* Instagram Gradient (same but appears different on dark bg) */
+    --gradient-instagram: linear-gradient(45deg, #A45EFF, #E1306C, #FD1D1D, #F77737);
+    
+    /* Dark mode shadows */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
 }
 
 @layer base {
@@ -91,6 +155,14 @@ All colors MUST be HSL.
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.4s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  /* Smooth theme transitions for all themed elements */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
   
   /* iOS-style smooth scrolling */

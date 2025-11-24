@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Settings as SettingsIcon, Moon, Globe, Smartphone, Trash2 } from "lucide-react";
+import { ArrowLeft, Settings as SettingsIcon, Moon, Sun, Globe, Smartphone, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -33,17 +35,27 @@ const Settings = () => {
         <div className="space-y-3">
           <h2 className="font-semibold text-foreground">Appearance</h2>
           
-          <div className="flex items-center justify-between p-4 rounded-xl bg-card border border-border">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-card border border-border transition-all duration-300">
             <div className="flex items-center gap-3 flex-1">
-              <Moon className="h-5 w-5 text-muted-foreground" />
+              <div className="relative">
+                {theme === "dark" ? (
+                  <Moon className="h-5 w-5 text-primary animate-in" />
+                ) : (
+                  <Sun className="h-5 w-5 text-accent animate-in" />
+                )}
+              </div>
               <div>
-                <Label htmlFor="darkMode">Dark Mode</Label>
+                <Label htmlFor="darkMode">Theme Mode</Label>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Currently using light theme
+                  Currently using {theme === "dark" ? "dark" : "light"} theme
                 </p>
               </div>
             </div>
-            <Switch id="darkMode" />
+            <Switch 
+              id="darkMode" 
+              checked={theme === "dark"}
+              onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+            />
           </div>
         </div>
 
