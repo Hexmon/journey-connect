@@ -1,4 +1,10 @@
 import { Pin } from "@/pages/Map";
+import avatarWoman1 from "@/assets/avatar-woman-1.jpg";
+import avatarMan1 from "@/assets/avatar-man-1.jpg";
+import avatarWoman2 from "@/assets/avatar-woman-2.jpg";
+import avatarMan2 from "@/assets/avatar-man-2.jpg";
+import avatarWoman3 from "@/assets/avatar-woman-3.jpg";
+import avatarMan3 from "@/assets/avatar-man-3.jpg";
 
 export const mockPins: Pin[] = [
   {
@@ -13,6 +19,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.003, lng: 0.002 },
     avatar: "SK",
     userName: "Sarah K.",
+    avatarImage: avatarWoman1,
   },
   {
     id: "2",
@@ -26,6 +33,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.01, lng: 0.01 },
     avatar: "RM",
     userName: "Rohan M.",
+    avatarImage: avatarMan3,
   },
   {
     id: "3",
@@ -39,6 +47,7 @@ export const mockPins: Pin[] = [
     location: { lat: -0.01, lng: 0.01 },
     avatar: "MP",
     userName: "Mike P.",
+    avatarImage: avatarMan1,
   },
   {
     id: "4",
@@ -52,6 +61,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.008, lng: -0.008 },
     avatar: "EL",
     userName: "Emma L.",
+    avatarImage: avatarWoman2,
   },
   {
     id: "5",
@@ -65,6 +75,7 @@ export const mockPins: Pin[] = [
     location: { lat: -0.005, lng: 0.003 },
     avatar: "LB",
     userName: "Local Business",
+    avatarImage: avatarWoman3,
   },
   {
     id: "6",
@@ -78,6 +89,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.007, lng: 0.009 },
     avatar: "AR",
     userName: "Alex R.",
+    avatarImage: avatarMan2,
   },
   {
     id: "7",
@@ -91,6 +103,7 @@ export const mockPins: Pin[] = [
     location: { lat: -0.006, lng: -0.004 },
     avatar: "PS",
     userName: "Priya S.",
+    avatarImage: avatarWoman1,
   },
   {
     id: "8",
@@ -104,6 +117,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.012, lng: -0.007 },
     avatar: "DC",
     userName: "David C.",
+    avatarImage: avatarMan2,
   },
   {
     id: "9",
@@ -117,6 +131,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.004, lng: 0.006 },
     avatar: "SK",
     userName: "Sarah K.",
+    avatarImage: avatarWoman1,
   },
   {
     id: "10",
@@ -130,6 +145,7 @@ export const mockPins: Pin[] = [
     location: { lat: -0.007, lng: -0.003 },
     avatar: "PS",
     userName: "Priya S.",
+    avatarImage: avatarWoman3,
   },
   {
     id: "11",
@@ -143,6 +159,7 @@ export const mockPins: Pin[] = [
     location: { lat: 0.009, lng: 0.008 },
     avatar: "RM",
     userName: "Rohan M.",
+    avatarImage: avatarMan3,
   },
 ];
 
