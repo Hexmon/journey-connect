@@ -63,13 +63,15 @@ const Map = () => {
           />
         </div>
 
-        {/* FAB - Attached to left side */}
-        <button
-          onClick={() => setCreatePinOpen(true)}
-          className="fixed left-0 top-[45%] h-12 w-12 rounded-r-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-10 hover:translate-x-1 active:scale-95 pl-2"
-        >
-          <Plus className="h-5 w-5" />
-        </button>
+        {/* FAB and SOS - Attached to left side */}
+        <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
+          <button
+            onClick={() => setCreatePinOpen(true)}
+            className="h-12 w-12 rounded-r-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:translate-x-1 active:scale-95 pl-2"
+          >
+            <Plus className="h-5 w-5" />
+          </button>
+        </div>
 
         {/* SOS Button */}
         <SOSButton />
