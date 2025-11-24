@@ -31,13 +31,26 @@ const Map = () => {
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [createPinOpen, setCreatePinOpen] = useState(false);
   const [radius, setRadius] = useState(3);
+  const [showNav, setShowNav] = useState(true);
+  const [lastTap, setLastTap] = useState(0);
 
   const filteredPins = mockPins.filter((pin) => selectedFilters.includes(pin.type));
+
+  const handleMapTap = () => {
+    const now = Date.now();
+    const timeSinceLastTap = now - lastTap;
+    setLastTap(now);
+    
+    if (timeSinceLastTap < 300) {
+      // Double tap detected
+      setShowNav(!showNav);
+    }
+  };
 
   return (
     <div className="h-screen flex flex-col bg-background">
       {/* Map Container */}
-      <div className="flex-1 relative">
+      <div className="flex-1 relative" onClick={handleMapTap}>
         <MapView pins={filteredPins} onPinClick={setSelectedPin} />
         
         {/* Filter Bar */}
@@ -50,10 +63,10 @@ const Map = () => {
           />
         </div>
 
-        {/* FAB */}
+        {/* FAB - Fixed to left side */}
         <button
           onClick={() => setCreatePinOpen(true)}
-          className="absolute bottom-24 right-6 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-10 hover:scale-105 active:scale-95"
+          className="fixed left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center z-10 hover:scale-105 active:scale-95"
         >
           <Plus className="h-6 w-6" />
         </button>
@@ -62,8 +75,10 @@ const Map = () => {
         <SOSButton />
       </div>
 
-      {/* Bottom Navigation */}
-      <BottomNav />
+      {/* Bottom Navigation - Conditionally shown */}
+      <div className={`transition-all duration-300 ${showNav ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0 pointer-events-none'}`}>
+        <BottomNav />
+      </div>
 
       {/* Pin Detail Sheet */}
       {selectedPin && (
