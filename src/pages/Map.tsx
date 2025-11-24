@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { MapPin, Users, Calendar, Car, HandHeart, Megaphone, Plus, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import MapView from "@/components/MapView";
 import BottomNav from "@/components/BottomNav";
 import FilterBar from "@/components/FilterBar";
@@ -30,6 +31,7 @@ const Map = () => {
   const [selectedFilters, setSelectedFilters] = useState<PinType[]>(["meet", "event", "ride", "help", "news", "friends"]);
   const [selectedPin, setSelectedPin] = useState<Pin | null>(null);
   const [createPinOpen, setCreatePinOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [radius, setRadius] = useState(3);
   const [showNav, setShowNav] = useState(true);
   const [isInteracting, setIsInteracting] = useState(false);
@@ -75,19 +77,16 @@ const Map = () => {
         onWheel={handleMapInteraction}
       >
         <MapView pins={filteredPins} onPinClick={setSelectedPin} />
-        
-        {/* Filter Bar */}
-        <div className="absolute top-4 left-4 right-4 z-10">
-          <FilterBar
-            selectedFilters={selectedFilters}
-            onFiltersChange={setSelectedFilters}
-            radius={radius}
-            onRadiusChange={setRadius}
-          />
-        </div>
 
-        {/* FAB and SOS - Attached to left side */}
+        {/* Left Side Buttons - Filter, Add New, and SOS */}
         <div className="fixed left-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
+          <button
+            onClick={() => setFilterOpen(true)}
+            className="h-12 w-12 rounded-r-full bg-secondary text-secondary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:translate-x-1 active:scale-95 pl-2"
+          >
+            <SlidersHorizontal className="h-5 w-5" />
+          </button>
+          
           <button
             onClick={() => setCreatePinOpen(true)}
             className="h-12 w-12 rounded-r-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center hover:translate-x-1 active:scale-95 pl-2"
@@ -118,6 +117,23 @@ const Map = () => {
         open={createPinOpen}
         onClose={() => setCreatePinOpen(false)}
       />
+
+      {/* Filter Sheet */}
+      <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+        <SheetContent side="bottom" className="h-auto max-h-[80vh] rounded-t-3xl">
+          <SheetHeader>
+            <SheetTitle>Filters & Range</SheetTitle>
+          </SheetHeader>
+          <div className="mt-6">
+            <FilterBar
+              selectedFilters={selectedFilters}
+              onFiltersChange={setSelectedFilters}
+              radius={radius}
+              onRadiusChange={setRadius}
+            />
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
