@@ -71,10 +71,9 @@ const Map = () => {
           >
             <Plus className="h-5 w-5" />
           </button>
+          
+          <SOSButton />
         </div>
-
-        {/* SOS Button */}
-        <SOSButton />
       </div>
 
       {/* Bottom Navigation - Conditionally shown */}
